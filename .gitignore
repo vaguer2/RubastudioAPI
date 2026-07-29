@@ -1,0 +1,8 @@
+node_modules
+dist
+.env
+private.key
+public.key
+serviceAccountKey.json
+*.txt
+fix-env.js

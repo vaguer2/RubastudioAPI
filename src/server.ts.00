@@ -1,0 +1,34 @@
+import express, { Request, Response } from 'express';
+import dotenv from 'dotenv';
+
+// Cargar variables de entorno del archivo .env
+dotenv.config();
+
+// Inicializar la aplicación de Express
+const app = express();
+
+// Definir puerto desde el entorno o usar el puerto 4000 por defecto
+const PORT = process.env.PORT || 4000;
+
+/* 
+  MIDDLEWARES BASE:
+  express.json() es fundamental para que nuestro servidor sea capaz de 
+  leer e interpretar payloads con formato JSON en el cuerpo (body) de las peticiones HTTP.
+*/
+app.use(express.json());
+
+/*
+  ENDPOINT DE SALUD (Health Check):
+  Ruta técnica para verificar que el servidor está encendido y respondiendo.
+*/
+app.get('/health', (_req: Request, res: Response) => {
+  res.status(200).json({
+    ok: true,
+    mensaje: 'API de Ruba Studio funcionando correctamente'
+  });
+});
+
+// Arrancar la escucha del servidor HTTP
+app.listen(PORT, () => {
+  console.log(`Servidor corriendo en http://localhost:${PORT}`);
+});
