@@ -1,7 +1,8 @@
 import express, { Request, Response } from "express";
-import cookieParser from "cookie-parser"; //para que se conserve informacin importante de la sesion
+import cookieParser from "cookie-parser"; // Para que se conserve información importante de la sesión
+import cors from "cors";
 import dotenv from "dotenv";
-import authRoutes from "./modules/auth/auth.routes"; //especificamos las tutas que vamos a usar
+import authRoutes from "./modules/auth/auth.routes"; // Especificamos las rutas que vamos a usar
 
 dotenv.config();
 
@@ -11,32 +12,21 @@ const PORT = process.env.PORT || 4000;
 // Middlewares Globales
 app.use(express.json());
 app.use(cookieParser()); // Permite a Express leer req.cookies
+app.use(cors()); // Permite peticiones desde el frontend o clientes externos
 
-// Rutas de la API
-app.use("/api/v1/auth", authRoutes);
+// Ruta raíz (para evitar el "Cannot GET /" en el navegador)
+app.get("/", (_req: Request, res: Response) => {
+  res.status(200).send("🚀 API Ruba Studio funcionando correctamente en la nube");
+});
 
 // Healthcheck
 app.get("/health", (_req: Request, res: Response) => {
   res.status(200).json({ ok: true, mensaje: "API Ruba Studio activa" });
 });
 
+// Rutas de la API
+app.use("/api/v1/auth", authRoutes);
+
 app.listen(PORT, () => {
-  console.log(`Servidor ejecutándose en http://localhost:${PORT}`);
+  console.log(`Servidor ejecutándose en el puerto ${PORT}`);
 });
-
-/*
-
-//para instalar los comandos necesarios correremos lo siguiente:
-
-npm install -D typescript tsx @types/express
-npm install express dotenv
-
-
-
-//mas librerias (despues del paso de haber hecho las private key en api y todo generalmente en API):
-
-npm install jsonwebtoken cookie-parser zod firebase-admin
-npm install -D @types/jsonwebtoken @types/cookie-parser
-
-
-*/
