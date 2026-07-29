@@ -1,0 +1,8 @@
+evidence/01-gitignore.png
+evidence/02-healthcheck-local.png
+evidence/03-login-200.png
+evidence/04-login-401-credenciales-invalidas.png
+evidence/05-refresh-200.png
+evidence/06-logout-200.png
+evidence/07-refresh-post-logout-401.png
+evidence/08-firestore-revocado-true.png
